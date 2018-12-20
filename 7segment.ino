@@ -1,11 +1,12 @@
 class SevenSeg
 {
 	int a, b, c, d, e, f, g;
-	
-
+	char polarity = 'C';			//whether the display is common anode 'A' or common cathode 'C'
+	int ACTIVE;						//segment value to be written in ditigalWrite() funciont
+	int INACTIVE;					//setment value to be written in ditigalWrite() funciont
 
 public:
-	SevenSeg(int pinA, int pinB, int pinC, int pinD, int pinE, int pinF, int pinG)
+	SevenSeg(int pinA, int pinB, int pinC, int pinD, int pinE, int pinF, int pinG, char displayType)
 	{
 		a = pinA;
 		b = pinB;
@@ -13,7 +14,20 @@ public:
 		d = pinD;
 		e = pinE;
 		f = pinF;
-		g = pinG;		
+		g = pinG;	
+		polarity = displayType;
+		
+
+		if (polarity == 'C')
+		{
+			ACTIVE = 0x1;
+			INACTIVE = 0x0;
+		}
+		else if(polarity == 'A')
+		{
+			ACTIVE = 0x0;
+			INACTIVE = 0x1;
+		}
 
 		pinMode(a, OUTPUT);
 		pinMode(b, OUTPUT);
@@ -25,114 +39,116 @@ public:
 	}
 
 	void Show(int digit)
-	{		
+	{	
+
+		
 		switch (digit)
 		{
 		case 0:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, HIGH);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, LOW);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, ACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, INACTIVE);
 			break;
 
 		case 1:
-			digitalWrite(a, LOW);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, LOW);
-			digitalWrite(e, LOW);
-			digitalWrite(f, LOW);
-			digitalWrite(g, LOW);
+			digitalWrite(a, INACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, INACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, INACTIVE);
+			digitalWrite(g, INACTIVE);
 			break;
 
 		case 2:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, LOW);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, HIGH);
-			digitalWrite(f, LOW);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, INACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, ACTIVE);
+			digitalWrite(f, INACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 3:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, LOW);
-			digitalWrite(f, LOW);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, INACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 4:
-			digitalWrite(a, LOW);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, LOW);
-			digitalWrite(e, LOW);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, INACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, INACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 5:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, LOW);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, LOW);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, INACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 6:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, LOW);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, HIGH);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, INACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, ACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 7:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, LOW);
-			digitalWrite(e, LOW);
-			digitalWrite(f, LOW);
-			digitalWrite(g, LOW);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, INACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, INACTIVE);
+			digitalWrite(g, INACTIVE);
 			break;
 
 		case 8:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, HIGH);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, ACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;
 
 		case 9:
-			digitalWrite(a, HIGH);
-			digitalWrite(b, HIGH);
-			digitalWrite(c, HIGH);
-			digitalWrite(d, HIGH);
-			digitalWrite(e, LOW);
-			digitalWrite(f, HIGH);
-			digitalWrite(g, HIGH);
+			digitalWrite(a, ACTIVE);
+			digitalWrite(b, ACTIVE);
+			digitalWrite(c, ACTIVE);
+			digitalWrite(d, ACTIVE);
+			digitalWrite(e, INACTIVE);
+			digitalWrite(f, ACTIVE);
+			digitalWrite(g, ACTIVE);
 			break;		
 		}
 
 	}
 };
 
-SevenSeg seg(8, 7, 6, 5, 4, 3, 2);
+SevenSeg seg(8, 7, 6, 5, 4, 3, 2, 'A');
 
 
 
